@@ -61,11 +61,13 @@ module Aws
     end
 
     def body_params(shape, params)
-      shape.members.each.with_object({}) do |(member_name, member_shape), hash|
+      hash = {}
+      shape.members.each() do |member_name, member_shape|
         if member_shape.location == 'body'
           hash[member_name] = params[member_name] if params.key?(member_name)
         end
       end
+      hash
     end
 
     def streaming?(shape)

@@ -38,12 +38,13 @@ module Aws
       end
 
       def structure_attrs(shape, values)
-        shape.members.inject({}) do |attrs, (member_name, member_shape)|
+        attrs = {}
+        shape.members.each do |member_name, member_shape|
           if xml_attribute?(member_shape) && values.key?(member_name)
             attrs[member_shape.location_name] = values[member_name]
           end
-          attrs
         end
+        attrs
       end
 
       def list(name, shape, values)

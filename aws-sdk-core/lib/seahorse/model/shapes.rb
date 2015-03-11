@@ -279,9 +279,11 @@ module Seahorse
         private
 
         def index_members_by_location_name
-          members.each.with_object({}) do |(name, shape), hash|
+          hash = {}
+          members.each() do |name, shape|
             hash[shape.location_name] = [name, shape]
           end
+          hash
         end
 
         def compute_member_names
